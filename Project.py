@@ -13,7 +13,7 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 client = Groq(api_key=groq_api_key)
 
 # Load local image
-image_path = r"C:\Users\PRAKASH.R\Downloads\16304154_TaeJune15.jpg"  # Make sure this file is in your project folder
+image_path = r"16304154_TaeJune15.jpg"  # Make sure this file is in your project folder
 
 # Function to call Groq API
 def groq_chat(prompt, system_prompt=""):
