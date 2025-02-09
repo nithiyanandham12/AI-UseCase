@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import requests
 from groq import Groq
 from dotenv import load_dotenv
@@ -77,15 +78,28 @@ elif option == "Advanced Translation":
         translation = groq_chat(prompt)
         st.text_area("📜 Translated Text", translation, height=100)
 
-# 3. Data Visualization
+# 3. Enhanced Data Visualization
 elif option == "Data Visualization":
-    st.title("📊 Data Visualization")
+    st.title("📊 Enhanced Data Visualization")
     file = st.file_uploader("📂 Upload CSV File", type=["csv"])
     if file:
         df = pd.read_csv(file)
         st.write("📌 **Preview of Uploaded Data:**", df.head())
-        selected_column = st.selectbox("📌 Select a column to visualize", df.columns)
-        fig = px.histogram(df, x=selected_column, title=f"📊 Distribution of {selected_column}")
+        selected_column = st.selectbox("📌 Select a column for visualization", df.columns)
+        
+        # Create bar chart
+        bar_chart = px.bar(df, x=df.index, y=selected_column, title=f"Bar Chart of {selected_column}", color=selected_column)
+        st.plotly_chart(bar_chart)
+        
+        # Create line chart
+        line_chart = px.line(df, x=df.index, y=selected_column, title=f"Line Chart of {selected_column}", markers=True)
+        st.plotly_chart(line_chart)
+        
+        # Create combined bar & line chart
+        fig = go.Figure()
+        fig.add_trace(go.Bar(x=df.index, y=df[selected_column], name="Bar Chart", marker_color='blue'))
+        fig.add_trace(go.Line(x=df.index, y=df[selected_column], name="Line Chart", marker_color='red'))
+        fig.update_layout(title=f"Bar & Line Chart of {selected_column}")
         st.plotly_chart(fig)
 
 # 4. Lead Generation
