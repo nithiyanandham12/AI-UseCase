@@ -32,7 +32,7 @@ def groq_chat(prompt, system_prompt=""):
 
 # Streamlit App Config
 st.set_page_config(page_title="AI Multi-Usecase App", layout="wide")
-st.sidebar.image(Image.open(image_path).resize((200, 100)), caption="AI-Powered App", use_column_width=False)
+st.sidebar.image(Image.open(image_path).resize((200, 100)), caption="AI-Powered App", use_container_width=False)
 st.sidebar.title("🔮 Multi-Usecase AI App")
 st.sidebar.markdown("💡 **Explore AI-powered tools for productivity!**")
 option = st.sidebar.radio(
